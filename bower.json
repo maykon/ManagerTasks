@@ -1,0 +1,32 @@
+{
+  "name": "manager_tasks",
+  "description": "Gerenciador de projetos e tarefas",
+  "main": "server.js",
+  "authors": [
+    "Maykon Luís Capellari"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "manager",
+    "tasks",
+    "mean",
+    "node",
+    "mogodb",
+    "express",
+    "angular"
+  ],
+  "homepage": "https://github.com/maykon/ManagerTasks",
+  "moduleType": [
+    "node"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.6"
+  }
+}

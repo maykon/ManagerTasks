@@ -1,0 +1,46 @@
+{
+  "name": "manager_tasks",
+  "version": "1.0.0",
+  "description": "Gerenciador de projetos e tarefas",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "*",
+    "express-load": "*",
+    "express-session": "*",
+    "morgan": "*",
+    "body-parser": "*",
+    "cookie-parser": "*",
+    "method-override": "*",
+    "mongoose": "*",
+    "mongo-sanitize": "*",
+    "mongoose-findorcreate": "*",
+    "hbs": "*",
+    "passport": "*",
+    "passport-local": "*",
+    "bcrypt-nodejs": "*",
+    "connect-flash": "*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maykon/ManagerTasks.git"
+  },
+  "keywords": [
+    "manager",
+    "tasks",
+    "mean",
+    "node",
+    "mogodb",
+    "express",
+    "angular"
+  ],
+  "author": "Maykon Luís Capellari",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/maykon/ManagerTasks/issues"
+  },
+  "homepage": "https://github.com/maykon/ManagerTasks#readme"
+}
