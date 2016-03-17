@@ -2,10 +2,11 @@
   "name": "manager_tasks",
   "version": "1.0.0",
   "description": "Gerenciador de projetos e tarefas",
-  "main": "server.js",
+  "private": true,
+  "main": "start.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "supervisor server.js",
+    "start": "node start.js",
     "create_admin": "node create_admin.js"
   },
   "dependencies": {
