@@ -1,8 +1,9 @@
 ﻿var http = require('http');
-var express = require('express');
 var app = require('./config/express')();
-require('./config/database')('mongodb://localhost/manager-tasks');
+var config = require('./config/config')();
+require('./config/database')(config.db);
 
-http.createServer(app).listen(app.get('port'), function() {
-  console.log('ManagerTasks em execução na porta: ' + app.get('port'));
+http.createServer(app).listen(config.port, config.address, function() {
+  console.log('ManagerTasks em execução ', config.address,
+    ' (', config.env, ') escutando na porta ', config.port);
 });
