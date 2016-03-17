@@ -3,6 +3,10 @@ var passport = require('passport');
 module.exports = function(app) {
   var controller = {};
 
+  controller.getUserName = function(user) {
+    return user ? user.username : null;
+  };
+
   controller.isAuthenticated = function(req, res, next) {
     if (req.isAuthenticated())
       return next();

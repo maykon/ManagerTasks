@@ -32,8 +32,8 @@ module.exports = function() {
   app.use(flash());
 
   load('models', {
-      cwd: 'app'
-    })
+    cwd: 'app'
+  })
     .then('controllers')
     .then('routes/auth.js')
     .then('routes')
@@ -41,8 +41,19 @@ module.exports = function() {
   require('./passport')(app, passport);
 
   app.get('*', function(req, res) {
+    var username = req.user ? req.user.username : null;
     res.status(404).render('404', {
-      layout: "layout"
+      username: username
+    });
+  });
+
+  app.use(function(err, req, res, next) {
+    var username = req.user ? req.user.username : null;
+    console.error(err.stack);
+    var error = err.message ? err.message : err.errmsg;
+    res.status(500).render('error', {
+      error: error,
+      username: username
     });
   });
 

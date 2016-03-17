@@ -12,8 +12,8 @@ module.exports = function(app) {
   controller.listProjects = function(req, res) {
     var username = getUserName(req.user);
     Project.find({}).sort({
-        code: 1
-      })
+      code: 1
+    })
       .exec()
       .then((projects) => {
         res.render('projects/projects', {
@@ -22,6 +22,7 @@ module.exports = function(app) {
         });
       })
       .onReject((error) => res.status(500).render('error', {
+        username: username,
         error: error.errmsg
       }));
   };
@@ -35,9 +36,11 @@ module.exports = function(app) {
 
   controller.saveProject = function(req, res) {
     var data = sanitize(req.body);
+    var username = getUserName(req.user);
     Project.create(data)
       .then(() => res.redirect(PROJECT_PATH))
       .onReject((error) => res.status(500).render('error', {
+        username: username,
         error: error.errmsg
       }));
   };
@@ -51,34 +54,43 @@ module.exports = function(app) {
         username: username,
         project: project
       }))
-      .onReject((error) => res.status(500).render('error', {
-        error: error.errmsg
-      }));
+      .onReject((error) => {
+        var error = error.message ? error.message : error.errmsg;
+        console.error(error);
+        res.status(500).render('error', {
+          username: username,
+          error: error
+        })
+      });
   };
 
   controller.updateProject = function(req, res) {
     var _id = sanitize(req.params.id);
+    var username = getUserName(req.user);
     var data = {
       name: sanitize(req.body.name)
     };
     Project.findByIdAndUpdate({
-        _id: _id
-      }, data)
+      _id: _id
+    }, data)
       .exec()
       .then(() => res.redirect(PROJECT_PATH))
       .onReject((error) => res.status(500).render('error', {
+        username: username,
         error: error.errmsg
       }));
   };
 
   controller.deleteProject = function(req, res) {
     var _id = sanitize(req.params.id);
+    var username = getUserName(req.user);
     Project.findOneAndRemove({
-        _id: _id
-      })
+      _id: _id
+    })
       .exec()
       .then(() => res.redirect(PROJECT_PATH))
       .onReject((error) => res.status(500).render('error', {
+        username: username,
         error: error.errmsg
       }));
   };
@@ -87,14 +99,15 @@ module.exports = function(app) {
     var username = getUserName(req.user);
     var _id = sanitize(req.params.id);
     Project.findById({
-        _id: _id
-      })
+      _id: _id
+    })
       .exec()
       .then((project) => res.render('projects/edit', {
         username: username,
         project: project
       }))
       .onReject((error) => res.status(500).render('error', {
+        username: username,
         error: error.errmsg
       }));
   };
