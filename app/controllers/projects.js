@@ -18,6 +18,7 @@ module.exports = function(app) {
       .then((projects) => {
         res.render('projects/projects', {
           username: username,
+          messages: req.flash('info'),
           projects: projects
         });
       })
@@ -38,7 +39,10 @@ module.exports = function(app) {
     var data = sanitize(req.body);
     var username = getUserName(req.user);
     Project.create(data)
-      .then(() => res.redirect(PROJECT_PATH))
+      .then(() => {
+        res.locals.messages = req.flash('info', 'Projeto criado com sucesso!');
+        res.redirect(PROJECT_PATH);
+      })
       .onReject((error) => res.status(500).render('error', {
         username: username,
         error: error.errmsg
@@ -74,7 +78,10 @@ module.exports = function(app) {
       _id: _id
     }, data)
       .exec()
-      .then(() => res.redirect(PROJECT_PATH))
+      .then(() => {
+        res.locals.messages = req.flash('info', 'Projeto atualizado com sucesso!');
+        res.redirect(PROJECT_PATH);
+      })
       .onReject((error) => res.status(500).render('error', {
         username: username,
         error: error.errmsg
@@ -88,7 +95,10 @@ module.exports = function(app) {
       _id: _id
     })
       .exec()
-      .then(() => res.redirect(PROJECT_PATH))
+      .then(() => {
+        res.locals.messages = req.flash('info', 'Projeto removido com sucesso!');
+        res.redirect(PROJECT_PATH)
+      })
       .onReject((error) => res.status(500).render('error', {
         username: username,
         error: error.errmsg

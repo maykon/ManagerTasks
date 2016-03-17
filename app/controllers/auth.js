@@ -10,6 +10,7 @@ module.exports = function(app) {
   controller.isAuthenticated = function(req, res, next) {
     if (req.isAuthenticated())
       return next();
+    req.flash('info', 'Usuário não autenticado!');
     res.redirect('/');
   };
 
@@ -20,7 +21,9 @@ module.exports = function(app) {
   });
 
   controller.signup = function(req, res) {
-    res.render('signup');
+    res.render('signup/signup', {
+      messages: req.flash('info')
+    });
   };
 
   controller.signup_register = passport.authenticate('signup', {
@@ -31,6 +34,7 @@ module.exports = function(app) {
 
   controller.logout = function(req, res) {
     req.logout();
+    req.flash('info', 'Realizado logout com sucesso!');
     res.redirect('/');
   };
 

@@ -38,41 +38,9 @@
   </div>
   </nav>
 
- <!-- <nav class="navbar navbar-dark bg-inverse navbar-fixed-top">
-    <div class="container-fluid">
-      <div class="navbar-header bg-inverse">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="/">ManagerTasks</a>
-      </div>
-      <div id="navbar" class="collapse navbar-collapse">
-        <ul class="nav navbar-nav">
-          <li><a href="/dashboard">Dashboard</a></li>
-          <li><a href="/projects">Projects</a></li>
-        </ul>
-        <form class="navbar-form navbar-right" method="post" action="/login">
-        {{#if username}}
-          <a class="btn btn-success disabled" href="#" role="button">{{username}}</a>
-          <a class="btn btn-warning" href="/logout" role="button">Sair</a>
-        {{else}}
-          <div class="form-group">
-            <input placeholder="Usuário" class="form-control" type="text" name="username">
-          </div>
-          <div class="form-group">
-            <input placeholder="Senha" class="form-control" type="password" name="password">
-          </div>
-          <button type="submit" class="btn btn-success">Login</button>
-          <a href="/signup" class="btn btn-primary" role="button">Registrar</a>
-        {{/if}}
-        </form>
-      </div>
-    </div>
-  </nav>
-  -->
+  {{#if messages}}
+  <p class="bg-info">{{messages}}</p>
+  {{/if}}
 
   {{{body}}}
   <script src="/vendor/jquery/dist/jquery.min.js"></script>

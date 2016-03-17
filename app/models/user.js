@@ -30,17 +30,18 @@ var model = (function() {
     return bCrypt.compareSync(password, this.password);
   };
 
-  userSchema.statics.authenticate = function(username, password, done) {
+  userSchema.statics.authenticate = function(req, username, password, done) {
     this.findOne({
-        username: username
-      })
+      username: username
+    })
       .exec()
       .then((user) => {
-        if (!user) return done(null, false);
-        if (!user.isValidPassword(password)) return done(null, false);
+        if (!user) return done(null, false, req.flash('info', 'Usuário não encontrado!'));
+        if (!user.isValidPassword(password)) return done(null, false, req.flash('info', 'Senha inválida!'));
         return done(null, user);
       }).onReject((error) => {
-        return done(error)
+        req.flash('info', error.errmsg);
+        return done(error);
       });
   };
 
