@@ -4,4 +4,4 @@ node_modules/
 tmp
 .DS_Store
 npm-debug.log
-public/vendor/*
+public/vendor/**
