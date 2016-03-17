@@ -1,7 +1,8 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var bCrypt = require('bcrypt-nodejs');
 
-module.exports = function(app) {
+var model = (function() {
   var userSchema = new Schema({
     username: {
       type: String,
@@ -20,21 +21,32 @@ module.exports = function(app) {
     }
   });
 
+  userSchema.pre('save', function(next) {
+    this.password = bCrypt.hashSync(this.password, bCrypt.genSaltSync(8), null, next);
+    next();
+  });
+
+  userSchema.methods.isValidPassword = function(password) {
+    return bCrypt.compareSync(password, this.password);
+  };
+
   userSchema.statics.authenticate = function(username, password, done) {
-    console.log(username, ' ', password);
-    return this.findOne({
-        username: username,
-        password: password
+    this.findOne({
+        username: username
       })
       .exec()
       .then((user) => {
         if (!user) return done(null, false);
-        console.log(user);
+        if (!user.isValidPassword(password)) return done(null, false);
         return done(null, user);
-      }, (error) => {
-        done(error)
+      }).onReject((error) => {
+        return done(error)
       });
   };
 
   return mongoose.model('user', userSchema);
+})();
+
+module.exports = function(app) {
+  return model;
 };

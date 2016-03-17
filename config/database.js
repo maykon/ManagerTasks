@@ -1,4 +1,4 @@
-var mongoose = require('mongoose');
+Ôªøvar mongoose = require('mongoose');
 
 module.exports = function(uri) {
   mongoose.connect(uri, {
@@ -16,13 +16,15 @@ module.exports = function(uri) {
   });
 
   mongoose.connection.on('error', function(erro) {
-    console.log('Mongoose! Erro na conex„o: ' + erro);
+    console.log('Mongoose! Erro na conex–≥o: ' + erro);
   });
 
   process.on('SIGINT', function() {
     mongoose.connection.close(function() {
-      console.log('Mongoose! Desconectando pelo tÈrmino da aplicaÁ„o');
+      console.log('Mongoose! Desconectando pelo t√©rmino da aplica√ß√£o');
       process.exit(0);
     });
   });
+
+  return mongoose;
 };

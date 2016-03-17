@@ -20,28 +20,30 @@ module.exports = function() {
     extended: true
   }));
   app.use(bodyParser.json());
-  app.use(require('method-override')());
+  app.use(require('method-override')('_method'));
   app.use(cookieParser());
   app.use(session({
     secret: app.get('secretKey'),
     resave: true,
     saveUninitialized: true
   }));
+  app.use(passport.initialize());
+  app.use(passport.session());
   app.use(flash());
 
   load('models', {
-    cwd: 'app'
-  })
+      cwd: 'app'
+    })
     .then('controllers')
     .then('routes/auth.js')
     .then('routes')
     .into(app);
   require('./passport')(app, passport);
-  app.use(passport.initialize());
-  app.use(passport.session());
 
   app.get('*', function(req, res) {
-    res.status(404).render('404');
+    res.status(404).render('404', {
+      layout: "layout"
+    });
   });
 
   return app;
