@@ -11,7 +11,9 @@ module.exports = function(app) {
   var controller = {};
   controller.listProjects = function(req, res) {
     var username = getUserName(req.user);
-    Project.find({})
+    Project.find({}).sort({
+        code: 1
+      })
       .exec()
       .then((projects) => {
         res.render('projects/projects', {
