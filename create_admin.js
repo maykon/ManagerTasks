@@ -1,4 +1,5 @@
-var mongoose = require('./config/database')('mongodb://localhost/manager-tasks');
+var config = require('./config/config')();
+var mongoose = require('./config/database')(config.db);
 var User = require('./app/models/user')();
 
 var admin_user = {
@@ -7,8 +8,8 @@ var admin_user = {
 };
 
 User.findOne({
-    username: admin_user.username
-  })
+  username: admin_user.username
+})
   .exec()
   .then((user) => {
     if (user) {

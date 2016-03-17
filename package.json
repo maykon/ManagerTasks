@@ -25,7 +25,7 @@
     "passport-local": "*",
     "bcrypt-nodejs": "*",
     "connect-flash": "*",
-    "supervisor": "*"
+    "connect-mongodb-session": "*"
   },
   "repository": {
     "type": "git",

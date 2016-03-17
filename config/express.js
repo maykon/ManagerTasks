@@ -6,9 +6,20 @@ var session = require('express-session');
 var passport = require('passport');
 var logger = require('morgan');
 var flash = require('connect-flash');
+var MongoDBStore = require('connect-mongodb-session')(session);
+var config = require('./config')();
 
 module.exports = function() {
   var app = express();
+
+  var store = new MongoDBStore({
+    uri: config.db,
+    collection: 'mySessions'
+  });
+  store.on('error', function(error) {
+    assert.ifError(error);
+    assert.ok(false);
+  });
 
   app.set('port', process.env.PORT || 8080);
   app.set('secretKey', 'meanManagerTasksSecretKey');
@@ -24,8 +35,10 @@ module.exports = function() {
   app.use(cookieParser());
   app.use(session({
     secret: app.get('secretKey'),
-    resave: true,
-    saveUninitialized: true
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 24 // 1 day
+    },
+    store: store
   }));
   app.use(passport.initialize());
   app.use(passport.session());
