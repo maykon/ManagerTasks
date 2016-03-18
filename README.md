@@ -14,6 +14,7 @@ Abra o terminal e navegue até a pasta onde foi realizado o clone do repositório.
 Devem ser executados os seguintes passos no terminal:
 
 `npm install`
+
 `bower install`
 
 ## Execução
