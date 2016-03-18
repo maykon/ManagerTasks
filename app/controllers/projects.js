@@ -36,7 +36,9 @@ module.exports = function(app) {
   };
 
   controller.saveProject = function(req, res) {
-    var data = sanitize(req.body);
+    var data = {
+      name: sanitize(req.body.name)
+    };
     var username = getUserName(req.user);
     Project.create(data)
       .then(() => {
