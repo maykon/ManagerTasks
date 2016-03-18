@@ -1,8 +1,12 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-var bCrypt = require('bcrypt-nodejs');
+var mongoose = require('mongoose'),
+  Schema = mongoose.Schema,
+  bCrypt = require('bcrypt-nodejs'),
+  autoIncrement = require('mongoose-auto-increment');
 
-var model = (function() {
+module.exports = function(app) {
+  var connection = mongoose.createConnection(app.config.db);
+  autoIncrement.initialize(connection);
+
   var types = "Nova funcionalidade,Bug,Serviço".split(',');
   var status = "Aberto Fechado Cancelado".split(' ');
 
@@ -47,10 +51,10 @@ var model = (function() {
     },
     orders: [osSchema]
   });
+  projectSchema.plugin(autoIncrement.plugin, {
+    model: 'project',
+    field: 'code'
+  });
 
-  return mongoose.model('project', projectSchema);
-})();
-
-module.exports = function(app) {
-  return model;
+  return connection.model('project', projectSchema);
 };

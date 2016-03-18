@@ -20,6 +20,7 @@
     "mongoose": "*",
     "mongo-sanitize": "*",
     "mongoose-findorcreate": "*",
+    "mongoose-auto-increment": "*",
     "hbs": "*",
     "passport": "*",
     "passport-local": "*",

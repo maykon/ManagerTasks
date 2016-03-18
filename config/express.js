@@ -11,6 +11,7 @@ var config = require('./config')();
 
 module.exports = function() {
   var app = express();
+  app.config = config;
 
   var store = new MongoDBStore({
     uri: config.db,
@@ -38,7 +39,9 @@ module.exports = function() {
     cookie: {
       maxAge: 1000 * 60 * 60 * 24 // 1 day
     },
-    store: store
+    store: store,
+    resave: false,
+    saveUninitialized: true
   }));
   app.use(passport.initialize());
   app.use(passport.session());
