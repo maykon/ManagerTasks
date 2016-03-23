@@ -6,28 +6,28 @@
     </h3>
   </div>
   <div class="panel-body">
-    {{#if project}}
+    <% if(project){ %>
       <div class="table-responsive">
         <table class="table table-hover">
           <tr>
             <th scope="row">Código: </th>
-            <td>{{project.code}}</td>
+            <td><%= project.code %></td>
           </tr>
           <tr>
             <th scope="row">Nome:</th>
-            <td>{{project.name}}</td>
+            <td><%= project.name %></td>
           </tr>
           <tr>
             <th scope="row">Data criação</th>
-            <td>{{project.created_at}}</td>
+            <td><%= project.created_at %></td>
           </tr>
         </table>
       </div>
-      {{else}}
+      <% }else{ %>
       <p class="text-info">
         Não há foi possível encontrar o projeto.
       </p>
-    {{/if}}
+    <% } %>
     <a href="/projects" class="btn btn-default">Voltar</a>
     </div>
   </div>

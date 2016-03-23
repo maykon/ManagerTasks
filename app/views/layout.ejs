@@ -21,10 +21,10 @@
         <li class="nav-item active"><a class="nav-link" href="/projects">Projects</a></li>
       </ul>
       <form class="form-inline pull-xs-right" method="post" action="/login">
-      {{#if username}}
-        <a class="btn btn-success disabled" href="#" role="button">{{username}}</a>
+      <% if(username){ %>
+        <a class="btn btn-success disabled" href="#" role="button"><%= username %></a>
         <a class="btn btn-warning" href="/logout" role="button">Sair</a>
-      {{else}}
+      <% }else{ %>
         <fieldset class="form-group">
           <input placeholder="Usuário" class="form-control" type="text" name="username" required>
         </fieldset>
@@ -33,16 +33,16 @@
         </fieldset>
         <button type="submit" class="btn btn-success">Login</button>
         <a href="/signup" class="btn btn-primary" role="button">Registrar</a>
-      {{/if}}
+      <% } %>
       </form>
   </div>
   </nav>
 
-  {{#if messages}}
-  <p class="bg-info">{{messages}}</p>
-  {{/if}}
+  <% if(messages){ %>
+  <p class="bg-info"><%= messages %></p>
+  <% } %>
 
-  {{{body}}}
+  <%-body%>
   <script src="/vendor/jquery/dist/jquery.min.js"></script>
   <script src="/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
 </body>

@@ -8,6 +8,7 @@ var logger = require('morgan');
 var flash = require('connect-flash');
 var MongoDBStore = require('connect-mongodb-session')(session);
 var config = require('./config')();
+var expressLayouts = require('express-ejs-layouts')
 
 module.exports = function() {
   var app = express();
@@ -26,8 +27,10 @@ module.exports = function() {
   app.set('secretKey', 'meanManagerTasksSecretKey');
   app.use(logger('dev'));
   app.use(express.static('./public'));
-  app.set('view engine', 'hbs');
+  app.set('view engine', 'ejs');
   app.set('views', './app/views');
+  app.set('layout', 'layout');
+  app.use(expressLayouts);
   app.use(bodyParser.urlencoded({
     extended: true
   }));

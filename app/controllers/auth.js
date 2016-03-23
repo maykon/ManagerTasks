@@ -3,6 +3,12 @@ var passport = require('passport');
 module.exports = function(app) {
   var controller = {};
 
+  app.use((req, res, next) => {
+    res.locals.username = null;
+    res.locals.messages = null;
+    next();
+  });
+
   controller.getUserName = function(user) {
     return user ? user.username : null;
   };

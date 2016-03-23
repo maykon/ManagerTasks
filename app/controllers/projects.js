@@ -56,6 +56,7 @@ module.exports = function(app) {
       .exec()
       .then((project) => res.render('projects/show', {
         username: username,
+        messages: req.flash('info'),
         project: project
       }))
       .onReject((error) => {
