@@ -17,8 +17,7 @@
         Project.get({}).$promise
           .then((response) => $scope.projects = response.projects)
           .catch((error) => {
-            $rootScope.error = error.data.messages;
-            $location.path('/error');
+            $rootScope.goToErro(error.data.error);
           });
       };
 
@@ -31,8 +30,7 @@
             $route.reload();
           })
           .catch((error) => {
-            $rootScope.error = error.data.messages;
-            $location.path('/error');
+            $rootScope.goToErro(error.data.error);
           });
       };
 
@@ -56,8 +54,7 @@
             $location.path('/projects');
           })
           .catch((error) => {
-            $rootScope.error = error.data.messages;
-            $location.path('/error');
+            $rootScope.goToErro(error.data.error);
           });
       };
     }
@@ -76,8 +73,7 @@
         }).$promise
           .then((response) => $scope.project = response.project)
           .catch((error) => {
-            $rootScope.error = error.data.messages;
-            $location.path('/error');
+            $rootScope.goToErro(error.data.error);
           });
       };
 
@@ -101,8 +97,7 @@
         }).$promise
           .then((response) => $scope.project = response.project)
           .catch((error) => {
-            $rootScope.error = error.data.messages;
-            $location.path('/error');
+            $rootScope.goToErro(error.data.error);
           });
       };
 
@@ -115,8 +110,7 @@
             $location.path('/projects');
           })
           .catch((error) => {
-            $rootScope.error = error.data.messages;
-            $location.path('/error');
+            $rootScope.goToErro(error.data.error);
           });
       };
 

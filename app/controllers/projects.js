@@ -15,15 +15,13 @@ module.exports = function(app) {
       .exec()
       .then((projects) => {
         var response = {
-          username: username,
           messages: req.flash('info'),
           projects: projects
         };
         res.status(200).json(response).end();
       })
       .onReject((error) => res.status(500).json({
-        username: username,
-        messages: error.errmsg
+        error: error.errmsg
       }));
   };
 
@@ -42,14 +40,12 @@ module.exports = function(app) {
     Project.create(data)
       .then(() => {
         var response = {
-          username: username,
           messages: 'Projeto criado com sucesso!'
         };
         res.status(200).json(response).end();
       })
       .onReject((error) => res.status(500).json({
-        username: username,
-        messages: error.errmsg
+        error: error.errmsg
       }));
   };
 
@@ -60,15 +56,13 @@ module.exports = function(app) {
       .exec()
       .then((project) => {
         var response = {
-          username: username,
           messages: req.flash('info'),
           project: project
         };
         res.status(200).json(response).end();
       })
       .onReject((error) => res.status(500).json({
-        username: username,
-        messages: error.errmsg
+        error: error.errmsg
       }));
   };
 
@@ -84,14 +78,12 @@ module.exports = function(app) {
       .exec()
       .then(() => {
         var response = {
-          username: username,
           messages: 'Projeto atualizado com sucesso!'
         };
         res.status(200).json(response).end();
       })
       .onReject((error) => res.status(500).json({
-        username: username,
-        messages: error.errmsg
+        error: error.errmsg
       }));
   };
 
@@ -104,14 +96,12 @@ module.exports = function(app) {
       .exec()
       .then(() => {
         var response = {
-          username: username,
           messages: 'Projeto removido com sucesso!'
         };
         res.status(200).json(response).end();
       })
       .onReject((error) => res.status(500).json({
-        username: username,
-        messages: error.errmsg
+        error: error.errmsg
       }));
   };
 

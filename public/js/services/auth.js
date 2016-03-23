@@ -7,16 +7,18 @@
       $rootScope.currentUser = $cookies.get('user') || null;
 
       return {
-        login: (user) => {
+        login: (user, cb) => {
           $http.post('/login', user)
             .then((response) => {
               $cookies.put('user', response.data.username);
               $rootScope.currentUser = response.data.username;
               $rootScope.messages = response.data.messages;
+              cb();
               $location.path('/');
             })
             .catch((error) => {
-              $rootScope.messages = error.data.messages;
+              cb();
+              $rootScope.goToErro(error.data.error);
             });
         },
         logout: () => {
@@ -25,9 +27,10 @@
               $cookies.remove('user');
               $rootScope.currentUser = null;
               $rootScope.messages = response.data.messages;
+              $location.path('/');
             })
             .catch((error) => {
-              $rootScope.messages = error.data.messages;
+              $rootScope.goToErro(error.data.error);
             });
         }
       };

@@ -36,12 +36,14 @@ var model = (function() {
     })
       .exec()
       .then((user) => {
-        if (!user) return done(null, false, {
-          messages: 'Usuário não encontrado!'
-        });
-        if (!user.isValidPassword(password)) return done(null, false, {
-          messages: 'Senha inválida!'
-        });
+        if (!user) {
+          var unauthorized = new Error('Usuário não encontrado!');
+          return done(unauthorized);
+        }
+        if (!user.isValidPassword(password)) {
+          var pwdInvalid = new Error('Senha inválida!');
+          return done(pwdInvalid);
+        }
         return done(null, user);
       }).onReject((error) => {
         var response = {

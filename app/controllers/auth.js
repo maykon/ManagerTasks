@@ -17,11 +17,13 @@ module.exports = function(app) {
     if (req.isAuthenticated())
       return next();
     res.status(401).json({
-      messages: 'Usuário não autenticado!'
+      error: 'Usuário não autenticado!'
     }).end();
   };
 
-  controller.login = [passport.authenticate('login'), (req, res) => {
+  controller.login = [passport.authenticate('login', {
+    failWithError: true
+  }), (req, res) => {
     var username = controller.getUserName(req.user);
     var response = {
       username: username,
