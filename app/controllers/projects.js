@@ -14,15 +14,16 @@ module.exports = function(app) {
     Project.find({})
       .exec()
       .then((projects) => {
-        res.render('projects/projects', {
+        var response = {
           username: username,
           messages: req.flash('info'),
           projects: projects
-        });
+        };
+        res.status(200).json(response).end();
       })
-      .onReject((error) => res.status(500).render('error', {
+      .onReject((error) => res.status(500).json({
         username: username,
-        error: error.errmsg
+        messages: error.errmsg
       }));
   };
 
@@ -40,12 +41,15 @@ module.exports = function(app) {
     var username = getUserName(req.user);
     Project.create(data)
       .then(() => {
-        res.locals.messages = req.flash('info', 'Projeto criado com sucesso!');
-        res.redirect(PROJECT_PATH);
+        var response = {
+          username: username,
+          messages: 'Projeto criado com sucesso!'
+        };
+        res.status(200).json(response).end();
       })
-      .onReject((error) => res.status(500).render('error', {
+      .onReject((error) => res.status(500).json({
         username: username,
-        error: error.errmsg
+        messages: error.errmsg
       }));
   };
 
@@ -54,19 +58,18 @@ module.exports = function(app) {
     var username = getUserName(req.user);
     Project.findById(_id)
       .exec()
-      .then((project) => res.render('projects/show', {
-        username: username,
-        messages: req.flash('info'),
-        project: project
-      }))
-      .onReject((error) => {
-        var error = error.message ? error.message : error.errmsg;
-        console.error(error);
-        res.status(500).render('error', {
+      .then((project) => {
+        var response = {
           username: username,
-          error: error
-        })
-      });
+          messages: req.flash('info'),
+          project: project
+        };
+        res.status(200).json(response).end();
+      })
+      .onReject((error) => res.status(500).json({
+        username: username,
+        messages: error.errmsg
+      }));
   };
 
   controller.updateProject = function(req, res) {
@@ -80,12 +83,15 @@ module.exports = function(app) {
     }, data)
       .exec()
       .then(() => {
-        res.locals.messages = req.flash('info', 'Projeto atualizado com sucesso!');
-        res.redirect(PROJECT_PATH);
+        var response = {
+          username: username,
+          messages: 'Projeto atualizado com sucesso!'
+        };
+        res.status(200).json(response).end();
       })
-      .onReject((error) => res.status(500).render('error', {
+      .onReject((error) => res.status(500).json({
         username: username,
-        error: error.errmsg
+        messages: error.errmsg
       }));
   };
 
@@ -97,12 +103,15 @@ module.exports = function(app) {
     })
       .exec()
       .then(() => {
-        res.locals.messages = req.flash('info', 'Projeto removido com sucesso!');
-        res.redirect(PROJECT_PATH)
+        var response = {
+          username: username,
+          messages: 'Projeto removido com sucesso!'
+        };
+        res.status(200).json(response).end();
       })
-      .onReject((error) => res.status(500).render('error', {
+      .onReject((error) => res.status(500).json({
         username: username,
-        error: error.errmsg
+        messages: error.errmsg
       }));
   };
 

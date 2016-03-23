@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <base href="/#/">
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,44 +10,56 @@
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body ng-app="managerTasks">
-  <nav class="navbar navbar-dark bg-inverse navbar-fixed-top">
-    <a class="navbar-brand" href="/">ManagerTasks</a>
+  <nav class="navbar navbar-dark bg-inverse navbar-fixed-top" ng-controller='MainCtrl'>
+    <a class="navbar-brand" ng-href="#/">ManagerTasks</a>
     <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar">
       &#9776;
     </button>
     <div class="collapse navbar-toggleable-xs" id="exCollapsingNavbar">
       <ul class="nav navbar-nav">
-        <li class="nav-item active"><a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a></li>
-        <li class="nav-item active"><a class="nav-link" href="/dashboard">Dashboard</a></li>
-        <li class="nav-item active"><a class="nav-link" href="/projects">Projects</a></li>
+        <li class="nav-item active"><a class="nav-link" ng-href="#/">Home <span class="sr-only">(current)</span></a></li>
+        <li class="nav-item active"><a class="nav-link" ng-href="#/dashboard">Dashboard</a></li>
+        <li class="nav-item active"><a class="nav-link" ng-href="#/projects">Projects</a></li>
       </ul>
-      <form class="form-inline pull-xs-right" method="post" action="/login">
-      <% if(username){ %>
-        <a class="btn btn-success disabled" href="#" role="button"><%= username %></a>
-        <a class="btn btn-warning" href="/logout" role="button">Sair</a>
-      <% }else{ %>
-        <fieldset class="form-group">
-          <input placeholder="Usuário" class="form-control" type="text" name="username" required>
-        </fieldset>
-        <fieldset class="form-group">
-          <input placeholder="Senha" class="form-control" type="password" name="password" required>
-        </fieldset>
-        <button type="submit" class="btn btn-success">Login</button>
-        <a href="/signup" class="btn btn-primary" role="button">Registrar</a>
-      <% } %>
+      <form class="form-inline pull-xs-right" ng-submit="login()">
+        <div ng-show="currentUser">
+          <a class="btn btn-success disabled" href="#" role="button">{{currentUser}}</a>
+          <a class="btn btn-warning" ng-click="logout()" role="button">Sair</a>
+        </div>
+        <div ng-hide="currentUser">
+          <fieldset class="form-group">
+            <input placeholder="Usuário" class="form-control" type="text" name="username" required ng-model="user.username">
+          </fieldset>
+          <fieldset class="form-group">
+            <input placeholder="Senha" class="form-control" type="password" name="password" required ng-model="user.password">
+          </fieldset>
+          <button type="submit" class="btn btn-success">Login</button>
+          <a href="/signup" class="btn btn-primary" role="button">Registrar</a>
+        </div>
       </form>
   </div>
   </nav>
 
-  <% if(messages){ %>
-  <p class="bg-info"><%= messages %></p>
-  <% } %>
+  {{user}}
 
-  <%-body%>
+  <p class="bg-info" ng-show="messages">{{messages}}</p>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div ng-view></div>
+    </div>
+  </div>
+
   <script src="/vendor/jquery/dist/jquery.min.js"></script>
   <script src="/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
   <script src="/vendor/angular/angular.min.js"></script>
+  <script src="/vendor/angular-cookies/angular-cookies.min.js"></script>
   <script src="/vendor/angular-route/angular-route.min.js"></script>
+  <script src="/vendor/angular-resource/angular-resource.js"></script>
   <script src="/js/main.js"></script>
+  <script src="/js/services/auth.js"></script>
+  <script src="/js/services/project.js"></script>
+  <script src="/js/controllers/main.js"></script>
+  <script src="/js/controllers/projects.js"></script>
 </body>
 </html>

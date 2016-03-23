@@ -1,0 +1,25 @@
+<div class="container">
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">
+      Novo Projeto
+    </h3>
+  </div>
+  <div class="panel-body">
+    <form ng-submit="saveProject()">
+      <div class="form-group">
+        <label for="name">Nome:</label>
+          <input type="text" class="form-control" id="name"
+          placeholder="Nome do projeto" name="name" ng-model="project.name"
+          required>
+      </div>
+      <div>
+        <button type="submit" class="btn btn-primary">
+          Salvar
+        </button>
+        <a id="botao-voltar" ng-href="{{projects_path}}" class="btn btn-default">Voltar</a>
+      </div>
+    </form>
+  </div>
+</div>
+</div>

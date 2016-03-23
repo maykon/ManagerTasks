@@ -61,19 +61,18 @@ module.exports = function() {
 
   app.get('*', function(req, res) {
     var username = req.user ? req.user.username : null;
-    res.status(404).render('404', {
-      username: username
-    });
+    res.status(404).redirect('/#/404');
   });
 
   app.use(function(err, req, res, next) {
     var username = req.user ? req.user.username : null;
     console.error(err.stack);
     var error = err.message ? err.message : err.errmsg;
-    res.status(500).render('error', {
+    res.status(500).json({
+      messages: error,
       error: error,
       username: username
-    });
+    }).end();
   });
 
   return app;

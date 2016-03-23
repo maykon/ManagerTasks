@@ -16,15 +16,19 @@ module.exports = function(app) {
   controller.isAuthenticated = function(req, res, next) {
     if (req.isAuthenticated())
       return next();
-    req.flash('info', 'Usuário não autenticado!');
-    res.redirect('/');
+    res.status(401).json({
+      messages: 'Usuário não autenticado!'
+    }).end();
   };
 
-  controller.login = passport.authenticate('login', {
-    successRedirect: '/dashboard',
-    failureRedirect: '/',
-    failureFlash: true
-  });
+  controller.login = [passport.authenticate('login'), (req, res) => {
+    var username = controller.getUserName(req.user);
+    var response = {
+      username: username,
+      messages: 'Login realizado com sucesso!'
+    };
+    res.status(200).json(response).end();
+  }];
 
   controller.signup = function(req, res) {
     res.render('signup/signup', {
@@ -40,8 +44,10 @@ module.exports = function(app) {
 
   controller.logout = function(req, res) {
     req.logout();
-    req.flash('info', 'Realizado logout com sucesso!');
-    res.redirect('/');
+    var response = {
+      messages: 'Realizado logout com sucesso!'
+    };
+    res.status(200).json(response).end();
   };
 
   return controller;

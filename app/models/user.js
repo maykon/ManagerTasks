@@ -36,11 +36,18 @@ var model = (function() {
     })
       .exec()
       .then((user) => {
-        if (!user) return done(null, false, req.flash('info', 'Usuário não encontrado!'));
-        if (!user.isValidPassword(password)) return done(null, false, req.flash('info', 'Senha inválida!'));
+        if (!user) return done(null, false, {
+          messages: 'Usuário não encontrado!'
+        });
+        if (!user.isValidPassword(password)) return done(null, false, {
+          messages: 'Senha inválida!'
+        });
         return done(null, user);
       }).onReject((error) => {
-        req.flash('info', error.errmsg);
+        var response = {
+          messages: error.errmsg
+        };
+        res.status(500).json(response);
         return done(error);
       });
   };

@@ -1,0 +1,30 @@
+<div class="container">
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">
+      Editar Projeto
+    </h3>
+  </div>
+  <div class="panel-body">
+    <form ng-submit="updateProject()">
+      <div class="form-group">
+        <label for="code">Código: </label>
+        <input type="text" class="form-control" id="code"
+        name="code" required placeholder="Código projeto" ng-model="project.code" disabled>
+      </div>
+      <div class="form-group">
+        <label for="name">Nome:</label>
+          <input type="text" class="form-control" id="name"
+          placeholder="Nome do projeto" name="name"
+          required ng-model="project.name">
+      </div>
+      <div>
+        <button type="submit" class="btn btn-primary">
+          Editar
+        </button>
+        <a id="botao-voltar" ng-href="{{projects_path}}" class="btn btn-default">Voltar</a>
+      </div>
+    </form>
+  </div>
+</div>
+</div>
