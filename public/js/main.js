@@ -1,6 +1,6 @@
 (function() {
   var managerTasks = angular.module('managerTasks', ['ngCookies', 'ngRoute',
-    'authFactory', 'projectFactory', 'mainCtrl', 'projectCtrl'
+    'authFactory', 'projectFactory', 'mainCtrl', 'projectCtrl', 'bsComponents'
   ]);
 
   managerTasks.run(['$rootScope',
