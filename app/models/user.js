@@ -30,7 +30,7 @@ var model = (function() {
     return bCrypt.compareSync(password, this.password);
   };
 
-  userSchema.statics.authenticate = function(req, username, password, done) {
+  userSchema.statics.authenticate = function(username, password, done) {
     this.findOne({
       username: username
     })
@@ -46,11 +46,34 @@ var model = (function() {
         }
         return done(null, user);
       }).onReject((error) => {
-        var response = {
-          messages: error.errmsg
-        };
-        res.status(500).json(response);
         return done(error);
+      });
+  };
+
+  userSchema.statics.signup = function(username, password, done) {
+    this.findOne({
+      username: username
+    })
+      .exec()
+      .then((user) => {
+        if (user) {
+          var userFounded = new Error('Usuário já registrado!');
+          return done(userFounded);
+        }
+
+        var data = {
+          username: username,
+          password: password
+        };
+        var user = User.create(data)
+          .then((user) => {
+            return done(null, user);
+          })
+          .onReject((error) => {
+            return done(error);
+          });
+      }).onReject((error) => {
+        return done(error)
       });
   };
 

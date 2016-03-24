@@ -17,7 +17,7 @@ module.exports = function(app, passport) {
       passReqToCallback: true
     },
     function(req, username, password, done) {
-      return User.authenticate(req, username, password, done);
+      return User.authenticate(username, password, done);
     }));
 
   passport.use('signup', new LocalStrategy({
@@ -25,29 +25,7 @@ module.exports = function(app, passport) {
     },
     function(req, username, password, done) {
       var findOrCreateUser = function() {
-        User.findOne({
-          username: username
-        })
-          .exec()
-          .then((user) => {
-            if (user) {
-              return done(null, false, req.flash('info', 'Usuário já registrado!'));
-            }
-
-            var data = {
-              username: username,
-              password: password
-            };
-            var user = User.create(data)
-              .then((user) => {
-                return done(null, user, req.flash('info', 'Usuário registrado com sucesso!'))
-              })
-              .onReject((error) => {
-                return done(null, false, req.flash('info', error.error))
-              });
-          }).onReject((error) => {
-            return done(null, false)
-          });
+        return User.signup(username, password, done);
       };
 
       process.nextTick(findOrCreateUser);

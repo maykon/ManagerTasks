@@ -25,13 +25,6 @@ module.exports = function(app) {
       }));
   };
 
-  controller.newProject = function(req, res) {
-    var username = getUserName(req.user);
-    res.render('projects/new', {
-      username: username
-    });
-  };
-
   controller.saveProject = function(req, res) {
     var data = {
       name: sanitize(req.body.name)
@@ -101,23 +94,6 @@ module.exports = function(app) {
         res.status(200).json(response).end();
       })
       .onReject((error) => res.status(500).json({
-        error: error.errmsg
-      }));
-  };
-
-  controller.editProject = function(req, res) {
-    var username = getUserName(req.user);
-    var _id = sanitize(req.params.id);
-    Project.findById({
-      _id: _id
-    })
-      .exec()
-      .then((project) => res.render('projects/edit', {
-        username: username,
-        project: project
-      }))
-      .onReject((error) => res.status(500).render('error', {
-        username: username,
         error: error.errmsg
       }));
   };

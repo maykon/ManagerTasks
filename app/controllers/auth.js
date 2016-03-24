@@ -32,17 +32,16 @@ module.exports = function(app) {
     res.status(200).json(response).end();
   }];
 
-  controller.signup = function(req, res) {
-    res.render('signup/signup', {
-      messages: req.flash('info')
-    });
-  };
-
-  controller.signup_register = passport.authenticate('signup', {
-    successRedirect: '/dashboard',
-    failureRedirect: '/signup',
-    failureFlash: true
-  });
+  controller.signup_register = [passport.authenticate('signup', {
+    failWithError: true
+  }), (req, res) => {
+    var username = controller.getUserName(req.user);
+    var response = {
+      username: username,
+      messages: 'Usuário cadastrado com sucesso!'
+    };
+    res.status(200).json(response).end();
+  }];
 
   controller.logout = function(req, res) {
     req.logout();

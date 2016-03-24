@@ -11,10 +11,11 @@ module.exports = function(app) {
 
   controller.dashboard = function(req, res) {
     var username = req.user ? req.user.username : null;
-    res.render('dashboard/dashboard', {
-      username: username,
-      messages: req.flash('info')
-    });
+    var response = {
+      messages: req.flash('info'),
+      dashboard: []
+    };
+    res.status(200).json(response).end();
   };
 
   return controller;
