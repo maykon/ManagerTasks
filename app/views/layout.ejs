@@ -34,7 +34,7 @@
             <input placeholder="Senha" class="form-control" type="password" name="password" required ng-model="user.password">
           </fieldset>
           <button type="submit" class="btn btn-success">Login</button>
-          <a href="/signup" class="btn btn-primary" role="button">Registrar</a>
+          <a class="btn btn-primary" ng-click="register()" role="button">Registrar</a>
         </div>
       </form>
   </div>
@@ -55,6 +55,7 @@
   <script src="/vendor/angular-route/angular-route.min.js"></script>
   <script src="/vendor/angular-resource/angular-resource.js"></script>
   <script src="/js/main.js"></script>
+  <script src="/js/routes.js"></script>
   <script src="/js/services/auth.js"></script>
   <script src="/js/services/project.js"></script>
   <script src="/js/controllers/main.js"></script>

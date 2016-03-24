@@ -65,7 +65,7 @@ var model = (function() {
           username: username,
           password: password
         };
-        var user = User.create(data)
+        var user = this.create(data)
           .then((user) => {
             return done(null, user);
           })

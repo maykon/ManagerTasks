@@ -32,6 +32,21 @@
             .catch((error) => {
               $rootScope.goToErro(error.data.error);
             });
+        },
+        signup: () => {
+          $location.path('/signup');
+        },
+        register: (user) => {
+          $http.post('/signup', user)
+            .then((response) => {
+              $cookies.put('user', response.data.username);
+              $rootScope.currentUser = response.data.username;
+              $rootScope.messages = response.data.messages;
+              $location.path('/');
+            })
+            .catch((error) => {
+              $rootScope.goToErro(error.data.error);
+            });
         }
       };
     }
