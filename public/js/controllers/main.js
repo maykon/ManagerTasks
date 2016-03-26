@@ -6,10 +6,34 @@
     function($rootScope, $scope, Auth, $location) {
       $scope.user = null;
       $scope.signup = null;
+      $rootScope.items = [{
+        title: 'Home',
+        link: '/',
+        active: true
+      }, {
+        title: 'Dashboard',
+        link: '/dashboard',
+        active: false
+      }, {
+        title: 'Projects',
+        link: '/projects',
+        active: false
+      }];
 
       $rootScope.goToErro = (error) => {
         $rootScope.error = error;
         $location.path('/error');
+      };
+
+      $rootScope.showMessage = (message) => {
+        $rootScope.message = message;
+        $('#message').fadeIn('fast');
+      };
+
+      $rootScope.clearMessage = () => {
+        $('#message').fadeOut(3000, () => {
+          $rootScope.message = '';
+        });
       };
 
       $scope.userSchema = () => {

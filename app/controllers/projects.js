@@ -15,7 +15,7 @@ module.exports = function(app) {
       .exec()
       .then((projects) => {
         var response = {
-          messages: req.flash('info'),
+          message: req.flash('info'),
           projects: projects
         };
         res.status(200).json(response).end();
@@ -33,7 +33,7 @@ module.exports = function(app) {
     Project.create(data)
       .then(() => {
         var response = {
-          messages: 'Projeto criado com sucesso!'
+          message: 'Projeto criado com sucesso!'
         };
         res.status(200).json(response).end();
       })
@@ -49,7 +49,7 @@ module.exports = function(app) {
       .exec()
       .then((project) => {
         var response = {
-          messages: req.flash('info'),
+          message: req.flash('info'),
           project: project
         };
         res.status(200).json(response).end();
@@ -66,12 +66,12 @@ module.exports = function(app) {
       name: sanitize(req.body.name)
     };
     Project.findByIdAndUpdate({
-      _id: _id
-    }, data)
+        _id: _id
+      }, data)
       .exec()
       .then(() => {
         var response = {
-          messages: 'Projeto atualizado com sucesso!'
+          message: 'Projeto atualizado com sucesso!'
         };
         res.status(200).json(response).end();
       })
@@ -84,12 +84,12 @@ module.exports = function(app) {
     var _id = sanitize(req.params.id);
     var username = getUserName(req.user);
     Project.findOneAndRemove({
-      _id: _id
-    })
+        _id: _id
+      })
       .exec()
       .then(() => {
         var response = {
-          messages: 'Projeto removido com sucesso!'
+          message: 'Projeto removido com sucesso!'
         };
         res.status(200).json(response).end();
       })

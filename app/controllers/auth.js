@@ -5,7 +5,7 @@ module.exports = function(app) {
 
   app.use((req, res, next) => {
     res.locals.username = null;
-    res.locals.messages = null;
+    res.locals.message = null;
     next();
   });
 
@@ -27,7 +27,7 @@ module.exports = function(app) {
     var username = controller.getUserName(req.user);
     var response = {
       username: username,
-      messages: 'Login realizado com sucesso!'
+      message: 'Login realizado com sucesso!'
     };
     res.status(200).json(response).end();
   }];
@@ -38,7 +38,7 @@ module.exports = function(app) {
     var username = controller.getUserName(req.user);
     var response = {
       username: username,
-      messages: 'Usuário cadastrado com sucesso!'
+      message: 'Usuário cadastrado com sucesso!'
     };
     res.status(200).json(response).end();
   }];
@@ -46,7 +46,7 @@ module.exports = function(app) {
   controller.logout = function(req, res) {
     req.logout();
     var response = {
-      messages: 'Realizado logout com sucesso!'
+      message: 'Realizado logout com sucesso!'
     };
     res.status(200).json(response).end();
   };

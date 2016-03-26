@@ -10,37 +10,16 @@
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body ng-app="managerTasks">
-  <nav class="navbar navbar-dark bg-inverse navbar-fixed-top" ng-controller='MainCtrl'>
-    <a class="navbar-brand" ng-href="#/">ManagerTasks</a>
-    <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar">
-      &#9776;
-    </button>
-    <div class="collapse navbar-toggleable-xs" id="exCollapsingNavbar">
-      <ul class="nav navbar-nav">
-        <li class="nav-item active"><a class="nav-link" ng-href="#/">Home <span class="sr-only">(current)</span></a></li>
-        <li class="nav-item active"><a class="nav-link" ng-href="#/dashboard">Dashboard</a></li>
-        <li class="nav-item active"><a class="nav-link" ng-href="#/projects">Projects</a></li>
-      </ul>
-      <form class="form-inline pull-xs-right" ng-submit="login()">
-        <div ng-show="currentUser">
-          <a class="btn btn-success disabled" href="#" role="button">{{currentUser}}</a>
-          <a class="btn btn-warning" ng-click="logout()" role="button">Sair</a>
-        </div>
-        <div ng-hide="currentUser">
-          <fieldset class="form-group">
-            <input placeholder="Usuário" class="form-control" type="text" name="username" required ng-model="user.username">
-          </fieldset>
-          <fieldset class="form-group">
-            <input placeholder="Senha" class="form-control" type="password" name="password" required ng-model="user.password">
-          </fieldset>
-          <button type="submit" class="btn btn-success">Login</button>
-          <a class="btn btn-primary" ng-click="register()" role="button">Registrar</a>
-        </div>
-      </form>
+  <div ng-controller="MainCtrl as main">
+    <bs-nav title="ManagerTasks" url="#/">
+      <bs-nav-item items="items"></bs-nav-item>
+      <bs-form-login on-login="login()" on-logout="logout()"
+        on-register="register()" current-user="currentUser" user="user">
+      </bs-form-login>
+    </bs-nav>
   </div>
-  </nav>
 
-  <p class="bg-info" ng-show="messages" bs-hide="messages">{{messages}}</p>
+  <bs-message id="message" message="message" on-close="clearMessage()" bs-hide="message"></bs-message>
 
   <div class="container-fluid">
     <div class="row">

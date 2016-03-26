@@ -51,8 +51,8 @@ module.exports = function() {
   app.use(flash());
 
   load('models', {
-    cwd: 'app'
-  })
+      cwd: 'app'
+    })
     .then('controllers')
     .then('routes/auth.js')
     .then('routes')
@@ -69,7 +69,6 @@ module.exports = function() {
     console.error(err.stack);
     var error = err.message ? err.message : err.errmsg;
     res.status(500).json({
-      messages: error,
       error: error,
       username: username
     }).end();

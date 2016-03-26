@@ -5,11 +5,15 @@
     projects_path: '#/projects',
     new_project_path: '#/projects/new'
   });
+  projectCtrl.constant('dateFilterBr', 'dd/MM/yyyy HH:mm:ss');
 
   projectCtrl.controller('ProjectListCtrl', ['$rootScope', '$scope',
-    '$location', 'Project', 'projectsPath', '$route',
-    function($rootScope, $scope, $location, Project, projectsPath, $route) {
+    '$location', 'Project', 'projectsPath', '$route', 'dateFilterBr',
+    function($rootScope, $scope, $location, Project, projectsPath, $route,
+      dateFilterBr) {
       $scope.projects = [];
+      $scope.search = '';
+      $scope.dateFilter = dateFilterBr;
       $scope.projects_path = projectsPath.projects_path;
       $scope.new_project_path = projectsPath.new_project_path;
 
@@ -23,10 +27,10 @@
 
       $scope.deleteProject = (project) => {
         Project.delete({
-          id: project._id
-        }).$promise
+            id: project._id
+          }).$promise
           .then((response) => {
-            $rootScope.messages = response.messages;
+            $rootScope.showMessage(response.message);
             $route.reload();
           })
           .catch((error) => {
@@ -50,7 +54,7 @@
       $scope.saveProject = () => {
         $scope.project.$save()
           .then((response) => {
-            $rootScope.messages = response.messages;
+            $rootScope.showMessage(response.message);
             $location.path('/projects');
           })
           .catch((error) => {
@@ -61,16 +65,17 @@
   ]);
 
   projectCtrl.controller('ProjectShowCtrl', ['$rootScope', '$scope',
-    '$location', '$routeParams', 'Project', 'projectsPath',
+    '$location', '$routeParams', 'Project', 'projectsPath', 'dateFilterBr',
     function($rootScope, $scope, $location, $routeParams, Project,
-      projectsPath) {
+      projectsPath, dateFilterBr) {
       $scope.project = null;
       $scope.projects_path = projectsPath.projects_path;
+      $scope.dateFilter = dateFilterBr;
 
       $scope.findProject = (id) => {
         Project.get({
-          id: id
-        }).$promise
+            id: id
+          }).$promise
           .then((response) => $scope.project = response.project)
           .catch((error) => {
             $rootScope.goToErro(error.data.error);
@@ -93,8 +98,8 @@
 
       $scope.findProject = (id) => {
         Project.get({
-          id: id
-        }).$promise
+            id: id
+          }).$promise
           .then((response) => $scope.project = response.project)
           .catch((error) => {
             $rootScope.goToErro(error.data.error);
@@ -103,10 +108,10 @@
 
       $scope.updateProject = () => {
         Project.update({
-          id: $scope.project._id
-        }, $scope.project).$promise
+            id: $scope.project._id
+          }, $scope.project).$promise
           .then((response) => {
-            $rootScope.messages = response.messages;
+            $rootScope.showMessage(response.message);
             $location.path('/projects');
           })
           .catch((error) => {

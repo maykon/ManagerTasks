@@ -1,0 +1,18 @@
+<form class="form-inline pull-xs-right" ng-submit="$ctrl.onLogin()">
+  <div ng-show="$ctrl.currentUser">
+    <a class="btn btn-success disabled" href="#" role="button">{{$ctrl.currentUser}}</a>
+    <a class="btn btn-warning" ng-click="$ctrl.onLogout()" role="button">Sair</a>
+  </div>
+  <div ng-hide="$ctrl.currentUser">
+    <fieldset class="form-group">
+      <input placeholder="Usuário" class="form-control" type="text" name="username"
+        required ng-model="$ctrl.user.username">
+    </fieldset>
+    <fieldset class="form-group">
+      <input placeholder="Senha" class="form-control" type="password"
+        name="password" required ng-model="$ctrl.user.password">
+    </fieldset>
+    <button type="submit" class="btn btn-success">Login</button>
+    <a class="btn btn-primary" ng-click="$ctrl.onRegister()" role="button">Registrar</a>
+  </div>
+</form>

@@ -11,36 +11,72 @@
 
   bsComponents.directive('bsHide', ['$timeout', ($timeout) => {
     function link(scope, element, attrs) {
-      var model,
-        timeoutId;
+      var firstTime = false;
 
       function hide() {
-        scope.clear();
-      };
-
-      function timeToHide() {
-        timeoutId = $timeout(hide, 5000);
+        scope.clearMessage();
       };
 
       scope.$watch(attrs.bsHide, function(value) {
-        timeToHide();
-      });
-
-      element.on('$destroy', function() {
-        $timeout.cancel(timeoutId);
+        if (!firstTime) {
+          firstTime = true;
+          return;
+        }
+        hide();
       });
     };
 
     return {
       restrict: 'A',
-      controller: ['$rootScope',
-        function($rootScope) {
-          $rootScope.clear = () => {
-            $rootScope.messages = '';
-          }
-        }
-      ],
       link: link
     };
   }]);
+
+  bsComponents.component('bsNav', {
+    transclude: true,
+    templateUrl: '/js/components/bs-nav.html',
+    bindings: {
+      title: '@',
+      url: '@'
+    }
+  });
+
+  bsComponents.component('bsNavItem', {
+    templateUrl: '/js/components/bs-nav-item.html',
+    bindings: {
+      items: '='
+    },
+    controller: function($scope, $location) {
+      var ctrl = this;
+
+      $scope.goLink = (index) => {
+        ctrl.items.forEach((menu) => {
+          menu.active = false;
+        });
+        menu = ctrl.items[index];
+        menu.active = true;
+        $location.path(menu.link);
+      };
+    }
+  });
+
+  bsComponents.component('bsFormLogin', {
+    templateUrl: '/js/components/bs-form-login.html',
+    bindings: {
+      onLogin: '&',
+      onLogout: '&',
+      onRegister: '&',
+      currentUser: '<',
+      user: '='
+    }
+  });
+
+  bsComponents.component('bsMessage', {
+    templateUrl: '/js/components/bs-message.html',
+    bindings: {
+      message: '=',
+      onClose: '&'
+    }
+  });
+
 })();

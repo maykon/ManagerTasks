@@ -12,7 +12,7 @@
             .then((response) => {
               $cookies.put('user', response.data.username);
               $rootScope.currentUser = response.data.username;
-              $rootScope.messages = response.data.messages;
+              $rootScope.showMessage(response.data.message);
               cb();
               $location.path('/');
             })
@@ -26,7 +26,7 @@
             .then((response) => {
               $cookies.remove('user');
               $rootScope.currentUser = null;
-              $rootScope.messages = response.data.messages;
+              $rootScope.showMessage(response.data.message);
               $location.path('/');
             })
             .catch((error) => {
@@ -41,7 +41,7 @@
             .then((response) => {
               $cookies.put('user', response.data.username);
               $rootScope.currentUser = response.data.username;
-              $rootScope.messages = response.data.messages;
+              $rootScope.showMessage(response.data.message);
               $location.path('/');
             })
             .catch((error) => {
