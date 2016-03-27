@@ -19,10 +19,7 @@
 
       $scope.findAll = () => {
         Project.get({}).$promise
-          .then((response) => $scope.projects = response.projects)
-          .catch((error) => {
-            $rootScope.goToErro(error.data.error);
-          });
+          .then((response) => $scope.projects = response.projects);
       };
 
       $scope.deleteProject = (project) => {
@@ -32,9 +29,6 @@
           .then((response) => {
             $rootScope.showMessage(response.message);
             $route.reload();
-          })
-          .catch((error) => {
-            $rootScope.goToErro(error.data.error);
           });
       };
 
@@ -56,9 +50,6 @@
           .then((response) => {
             $rootScope.showMessage(response.message);
             $location.path('/projects');
-          })
-          .catch((error) => {
-            $rootScope.goToErro(error.data.error);
           });
       };
     }
@@ -76,10 +67,7 @@
         Project.get({
             id: id
           }).$promise
-          .then((response) => $scope.project = response.project)
-          .catch((error) => {
-            $rootScope.goToErro(error.data.error);
-          });
+          .then((response) => $scope.project = response.project);
       };
 
       $scope.init = () => {
@@ -100,10 +88,7 @@
         Project.get({
             id: id
           }).$promise
-          .then((response) => $scope.project = response.project)
-          .catch((error) => {
-            $rootScope.goToErro(error.data.error);
-          });
+          .then((response) => $scope.project = response.project);
       };
 
       $scope.updateProject = () => {
@@ -113,9 +98,6 @@
           .then((response) => {
             $rootScope.showMessage(response.message);
             $location.path('/projects');
-          })
-          .catch((error) => {
-            $rootScope.goToErro(error.data.error);
           });
       };
 

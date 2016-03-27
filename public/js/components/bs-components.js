@@ -10,29 +10,24 @@
   });
 
   bsComponents.directive('bsHide', ['$timeout', ($timeout) => {
-    function link(scope, element, attrs) {
-      var firstTime = false;
-
-      function hide() {
-        scope.clearMessage();
-      };
-
-      scope.$watch(attrs.bsHide, function(value) {
-        if (!firstTime) {
-          firstTime = true;
-          return;
-        }
-        hide();
+    function link(scope) {
+      scope.$on(scope.onActivate, () => {
+        scope.$emit(scope.onHide);
       });
     };
 
     return {
       restrict: 'A',
+      scope: {
+        onActivate: '@',
+        onHide: '@'
+      },
       link: link
     };
   }]);
 
   bsComponents.component('bsNav', {
+    restrict: 'E',
     transclude: true,
     templateUrl: '/js/components/bs-nav.html',
     bindings: {
@@ -42,6 +37,7 @@
   });
 
   bsComponents.component('bsNavItem', {
+    restrict: 'E',
     templateUrl: '/js/components/bs-nav-item.html',
     bindings: {
       items: '='
@@ -61,6 +57,7 @@
   });
 
   bsComponents.component('bsFormLogin', {
+    restrict: 'E',
     templateUrl: '/js/components/bs-form-login.html',
     bindings: {
       onLogin: '&',
@@ -72,6 +69,7 @@
   });
 
   bsComponents.component('bsMessage', {
+    restrict: 'E',
     templateUrl: '/js/components/bs-message.html',
     bindings: {
       message: '=',

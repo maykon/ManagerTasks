@@ -1,27 +1,21 @@
 var sanitize = require('mongo-sanitize');
 
 module.exports = function(app) {
-  const PROJECT_PATH = '/projects';
   var Project = app.models.project;
-
-  var getUserName = function(user) {
-    return user ? user.username : null;
-  };
+  var utils = app.controllers.utils;
 
   var controller = {};
   controller.listProjects = function(req, res) {
-    var username = getUserName(req.user);
     Project.find({})
       .exec()
       .then((projects) => {
         var response = {
-          message: req.flash('info'),
           projects: projects
         };
         res.status(200).json(response).end();
       })
       .onReject((error) => res.status(500).json({
-        error: error.errmsg
+        error: utils.getMessageError(error)
       }));
   };
 
@@ -29,7 +23,6 @@ module.exports = function(app) {
     var data = {
       name: sanitize(req.body.name)
     };
-    var username = getUserName(req.user);
     Project.create(data)
       .then(() => {
         var response = {
@@ -38,30 +31,27 @@ module.exports = function(app) {
         res.status(200).json(response).end();
       })
       .onReject((error) => res.status(500).json({
-        error: error.errmsg
+        error: utils.getMessageError(error)
       }));
   };
 
   controller.showProject = function(req, res) {
     var _id = sanitize(req.params.id);
-    var username = getUserName(req.user);
     Project.findById(_id)
       .exec()
       .then((project) => {
         var response = {
-          message: req.flash('info'),
           project: project
         };
         res.status(200).json(response).end();
       })
       .onReject((error) => res.status(500).json({
-        error: error.errmsg
+        error: utils.getMessageError(error)
       }));
   };
 
   controller.updateProject = function(req, res) {
     var _id = sanitize(req.params.id);
-    var username = getUserName(req.user);
     var data = {
       name: sanitize(req.body.name)
     };
@@ -76,13 +66,12 @@ module.exports = function(app) {
         res.status(200).json(response).end();
       })
       .onReject((error) => res.status(500).json({
-        error: error.errmsg
+        error: utils.getMessageError(error)
       }));
   };
 
   controller.deleteProject = function(req, res) {
     var _id = sanitize(req.params.id);
-    var username = getUserName(req.user);
     Project.findOneAndRemove({
         _id: _id
       })
@@ -94,7 +83,7 @@ module.exports = function(app) {
         res.status(200).json(response).end();
       })
       .onReject((error) => res.status(500).json({
-        error: error.errmsg
+        error: utils.getMessageError(error)
       }));
   };
 

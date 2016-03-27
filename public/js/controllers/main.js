@@ -28,6 +28,7 @@
       $rootScope.showMessage = (message) => {
         $rootScope.message = message;
         $('#message').fadeIn('fast');
+        $rootScope.$broadcast('messageShowed');
       };
 
       $rootScope.clearMessage = () => {
@@ -35,6 +36,10 @@
           $rootScope.message = '';
         });
       };
+
+      $rootScope.$on('messageHided', () => {
+        $rootScope.clearMessage();
+      });
 
       $scope.userSchema = () => {
         return {

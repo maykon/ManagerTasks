@@ -18,7 +18,6 @@
             })
             .catch((error) => {
               cb();
-              $rootScope.goToErro(error.data.error);
             });
         },
         logout: () => {
@@ -28,9 +27,6 @@
               $rootScope.currentUser = null;
               $rootScope.showMessage(response.data.message);
               $location.path('/');
-            })
-            .catch((error) => {
-              $rootScope.goToErro(error.data.error);
             });
         },
         signup: () => {
@@ -43,9 +39,6 @@
               $rootScope.currentUser = response.data.username;
               $rootScope.showMessage(response.data.message);
               $location.path('/');
-            })
-            .catch((error) => {
-              $rootScope.goToErro(error.data.error);
             });
         }
       };

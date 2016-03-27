@@ -1,5 +1,10 @@
 (function() {
   var managerTasks = angular.module('managerTasks', ['ngCookies', 'ngRoute',
-    'authFactory', 'projectFactory', 'mainCtrl', 'projectCtrl', 'bsComponents'
+    'interceptorFactory', 'authFactory', 'projectFactory', 'mainCtrl',
+    'projectCtrl', 'bsComponents'
   ]);
+
+  managerTasks.config(function($routeProvider, $httpProvider) {
+    $httpProvider.interceptors.push('Interceptor');
+  });
 })();

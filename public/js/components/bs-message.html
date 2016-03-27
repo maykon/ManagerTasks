@@ -1,4 +1,4 @@
-<div class="alert alert-info alert-dismissible" role="alert" ng-show="$ctrl.message">
+<div class="alert alert-info alert-dismissible" role="alert" ng-show="$ctrl.message" bs-hide on-activate="messageShowed" on-hide="messageHided">
   <button type="button" class="close" ng-click="$ctrl.onClose()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
   {{$ctrl.message}}
 </div>
