@@ -36,6 +36,26 @@
         templateUrl: 'js/partials/signup/signup.html',
         controller: 'MainCtrl'
       }).
+      when('/users', {
+        templateUrl: 'js/partials/users/list.html',
+        controller: 'UserListCtrl'
+      }).
+      when('/users/new', {
+        templateUrl: 'js/partials/users/new.html',
+        controller: 'UserNewCtrl'
+      }).
+      when('/users/:id/edit', {
+        templateUrl: 'js/partials/users/edit.html',
+        controller: 'UserEditCtrl'
+      }).
+      when('/users/:id', {
+        templateUrl: 'js/partials/users/show.html',
+        controller: 'UserShowCtrl'
+      }).
+      when('/forgot_password', {
+        templateUrl: 'js/partials/signup/forgot.html',
+        controller: 'MainCtrl'
+      }).
       otherwise({
         redirectTo: '/404'
       });

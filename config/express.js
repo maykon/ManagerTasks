@@ -1,5 +1,7 @@
 var express = require('express');
 var load = require('express-load');
+var path = require('path');
+var favicon = require('serve-favicon');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
@@ -8,7 +10,7 @@ var logger = require('morgan');
 var flash = require('connect-flash');
 var MongoDBStore = require('connect-mongodb-session')(session);
 var config = require('./config')();
-var expressLayouts = require('express-ejs-layouts')
+var expressLayouts = require('express-ejs-layouts');
 
 module.exports = function() {
   var app = express();
@@ -25,6 +27,7 @@ module.exports = function() {
 
   app.set('port', process.env.PORT || 8080);
   app.set('secretKey', 'meanManagerTasksSecretKey');
+  app.use(favicon(path.join(__dirname, '../', 'public', 'images', 'favicon.ico')));
   app.use(logger('dev'));
   app.use(express.static('./public'));
   app.set('view engine', 'ejs');
@@ -67,11 +70,13 @@ module.exports = function() {
 
   app.use(function(err, req, res, next) {
     var username = req.user ? req.user.username : null;
+    var utils = app.controllers.utils;
     console.error(err.stack);
-    var error = err.message ? err.message : err.errmsg;
+    console.error(err.name);
+    console.error(err.errors);
+
     res.status(500).json({
-      error: error,
-      username: username
+      error: utils.getMessageError(err)
     }).end();
   });
 

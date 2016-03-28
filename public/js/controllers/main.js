@@ -18,7 +18,16 @@
         title: 'Projects',
         link: '/projects',
         active: false
+      }, {
+        title: 'Users',
+        link: '/users',
+        active: false
       }];
+      $scope.forgot = {
+        email: null
+      };
+
+      $rootScope.dateFilterBr = 'dd/MM/yyyy HH:mm:ss';
 
       $rootScope.goToErro = (error) => {
         $rootScope.error = error;
@@ -69,9 +78,17 @@
         Auth.register($scope.signup);
       };
 
+      $scope.forgotPwd = () => {
+        Auth.forgot_pwd($scope.forgot);
+        $scope.forgot = {
+          email: null
+        };
+      }
+
       $scope.init = () => {
         $scope.clearUser();
         $scope.signup = $scope.userSchema();
+        $scope.signup.email = null;
       };
       $scope.init();
     }

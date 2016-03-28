@@ -1,4 +1,5 @@
 var LocalStrategy = require('passport-local').Strategy;
+var sanitize = require('mongo-sanitize');
 
 module.exports = function(app, passport) {
   var User = app.models.user;
@@ -17,6 +18,8 @@ module.exports = function(app, passport) {
       passReqToCallback: true
     },
     function(req, username, password, done) {
+      username = sanitize(username);
+      password = sanitize(password);
       return User.authenticate(username, password, done);
     }));
 
@@ -24,8 +27,12 @@ module.exports = function(app, passport) {
       passReqToCallback: true
     },
     function(req, username, password, done) {
+      console.log(username);
+      username = sanitize(username);
+      password = sanitize(password);
+      var email = sanitize(req.body.email);
       var findOrCreateUser = function() {
-        return User.signup(username, password, done);
+        return User.signup(username, password, email, done);
       };
 
       process.nextTick(findOrCreateUser);

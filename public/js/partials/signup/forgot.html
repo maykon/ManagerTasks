@@ -1,0 +1,22 @@
+<div class="container">
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">
+      Esqueci a senha
+    </h3>
+  </div>
+  <div class="panel-body">
+    <form ng-submit="forgotPwd()">
+      <fieldset class="form-group">
+        <label for="email">E-mail: </label>
+        <input placeholder="E-mail" class="form-control" type="email" name="email" required ng-model="forgot.email" autofocus/>
+      </fieldset>
+      <div>
+        <button type="submit" class="btn btn-primary">
+          Resetar senha
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+</div>

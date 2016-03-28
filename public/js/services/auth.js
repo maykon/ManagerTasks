@@ -40,6 +40,13 @@
               $rootScope.showMessage(response.data.message);
               $location.path('/');
             });
+        },
+        forgot_pwd: (email) => {
+          $http.post('/forgot_pwd', email)
+            .then((response) => {
+              $rootScope.showMessage(response.data.message);
+              $location.path('/');
+            });
         }
       };
     }

@@ -1,0 +1,35 @@
+<div class="container">
+  <bs-panel title="Novo Usuário">
+    <form ng-submit="saveUser()">
+      <div class="form-group">
+        <label for="email">E-mail:</label>
+          <input type="email" class="form-control" id="email"
+          placeholder="E-mail" name="email" ng-model="user.email"
+          required>
+      </div>
+      <div class="form-group">
+        <label for="username">Usuário:</label>
+          <input type="text" class="form-control" id="username"
+          placeholder="Usuário" name="username" ng-model="user.username"
+          required>
+      </div>
+      <div class="form-group">
+        <label for="password">Senha:</label>
+          <input type="password" class="form-control" id="password"
+          placeholder="Senha" name="password" ng-model="user.password"
+          required>
+      </div>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" name="is_admin" ng-model="user.is_admin"> Administrador?
+        </label>
+      </div>
+      <div>
+        <button type="submit" class="btn btn-primary">
+          Salvar
+        </button>
+        <a id="botao-voltar" ng-href="{{users_path}}" class="btn btn-default">Voltar</a>
+      </div>
+    </form>
+  </bs-panel>
+</div>

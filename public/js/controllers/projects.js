@@ -5,21 +5,19 @@
     projects_path: '#/projects',
     new_project_path: '#/projects/new'
   });
-  projectCtrl.constant('dateFilterBr', 'dd/MM/yyyy HH:mm:ss');
 
   projectCtrl.controller('ProjectListCtrl', ['$rootScope', '$scope',
-    '$location', 'Project', 'projectsPath', '$route', 'dateFilterBr',
-    function($rootScope, $scope, $location, Project, projectsPath, $route,
-      dateFilterBr) {
+    'Project', 'projectsPath', '$route',
+    function($rootScope, $scope, Project, projectsPath, $route) {
       $scope.projects = [];
       $scope.search = '';
-      $scope.dateFilter = dateFilterBr;
+      $scope.dateFilter = $rootScope.dateFilterBr;
       $scope.projects_path = projectsPath.projects_path;
       $scope.new_project_path = projectsPath.new_project_path;
 
       $scope.findAll = () => {
-        Project.get({}).$promise
-          .then((response) => $scope.projects = response.projects);
+        Project.query().$promise
+          .then((response) => $scope.projects = response);
       };
 
       $scope.deleteProject = (project) => {
@@ -56,12 +54,12 @@
   ]);
 
   projectCtrl.controller('ProjectShowCtrl', ['$rootScope', '$scope',
-    '$location', '$routeParams', 'Project', 'projectsPath', 'dateFilterBr',
-    function($rootScope, $scope, $location, $routeParams, Project,
-      projectsPath, dateFilterBr) {
+    '$routeParams', 'Project', 'projectsPath',
+    function($rootScope, $scope, $routeParams, Project,
+      projectsPath) {
       $scope.project = null;
       $scope.projects_path = projectsPath.projects_path;
-      $scope.dateFilter = dateFilterBr;
+      $scope.dateFilter = $rootScope.dateFilterBr;
 
       $scope.findProject = (id) => {
         Project.get({

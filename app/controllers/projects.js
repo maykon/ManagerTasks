@@ -9,10 +9,7 @@ module.exports = function(app) {
     Project.find({})
       .exec()
       .then((projects) => {
-        var response = {
-          projects: projects
-        };
-        res.status(200).json(response).end();
+        res.status(200).json(projects).end();
       })
       .onReject((error) => res.status(500).json({
         error: utils.getMessageError(error)

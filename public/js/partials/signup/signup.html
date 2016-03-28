@@ -8,6 +8,10 @@
   <div class="panel-body">
     <form ng-submit="signupRegister()">
       <div class="form-group">
+        <label for="code">E-mail: </label>
+        <input placeholder="E-mail" class="form-control" type="text" name="email" required ng-model="signup.email"/>
+      </div>
+      <div class="form-group">
         <label for="code">Usuário: </label>
         <input placeholder="Usuário" class="form-control" type="text" name="username" required ng-model="signup.username"/>
       </div>

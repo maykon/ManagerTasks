@@ -1,0 +1,47 @@
+<div class="container">
+  <bs-panel title="Usuários">
+    <div id="listUsers" ng-show="users.length">
+      <form class="form-inline">
+        <fieldset class="form-group">
+          <label for="search">Pesquisar:</label>
+            <input type="search" class="form-control" id="search"
+            placeholder="Pesquisar" name="search" ng-model="search"
+            >
+          <span>Usuários cadastrados: <strong>{{users.length}}</strong></span>
+        </fieldset>
+      </form>
+      <div class="table-responsive">
+        <table class="table table-hover">
+        <thead class="thead-inverse">
+          <tr>
+            <th>Usuário</th>
+            <th>E-mail</th>
+            <th>Data criação</th>
+            <th>Administrador?</th>
+            <th class="text-xs-center">Ação</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="user in users | filter:search">
+            <td scope="row">
+              <a ng-href="#/users/{{user._id}}">{{user.username}}</a>
+            </td>
+            <td>{{user.email}}</td>
+            <td>{{user.created_at | date:dateFilter}}</td>
+            <td>{{user.is_admin | yesNo}}</td>
+            <td class="text-xs-center">
+              <a ng-href="#/users/{{user._id}}/edit" class="btn btn-warning" title="Editar">Editar</a>
+              <a class="btn btn-danger" ng-click="deleteUser(user)" title="Remover">Remover</a>
+              <a ng-href="#/users/{{user._id}}" class="btn btn-success" title="Visualizar">Visualizar</a>
+            </td>
+          </tr>
+        </tbody>
+        </table>
+      </div>
+    </div>
+    <p class="text-info" ng-hide="users.length">
+      Não há usuários cadastrados.
+    </p>
+    <a ng-href="{{new_user_path}}" class="btn btn-primary">Novo Usuário</a>
+  </bs-panel>
+</div>

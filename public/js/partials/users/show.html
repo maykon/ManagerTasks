@@ -1,0 +1,28 @@
+<div class="container">
+  <bs-panel title="Dados Usuário">
+    <div class="table-responsive" ng-show="user">
+      <table class="table table-hover">
+        <tr bs-row>
+          <th scope="row">E-mail: </th>
+          <td>{{user.email}}</td>
+        </tr>
+        <tr bs-row>
+          <th scope="row">Usuário:</th>
+          <td>{{user.username}}</td>
+        </tr>
+        <tr bs-row>
+          <th scope="row">Data criação</th>
+          <td>{{user.created_at | date:dateFilter}}</td>
+        </tr>
+        <tr bs-row>
+          <th scope="row">Administrador?</th>
+          <td>{{user.is_admin | yesNo}}</td>
+        </tr>
+       </table>
+     </div>
+     <p class="text-info" ng-hide="user">
+      Não há foi possível encontrar o usuário.
+    </p>
+    <a ng-href="{{users_path}}" class="btn btn-default">Voltar</a>
+  </bs-panel>
+</div>

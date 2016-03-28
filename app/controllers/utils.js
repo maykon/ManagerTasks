@@ -12,7 +12,18 @@ module.exports = function(app) {
   };
 
   controller.getMessageError = function(error) {
-    return error.message ? error.message : error.errmsg;
+    var message = error.message ? error.message : error.errmsg;
+    if (error.name == "ValidationError") {
+      if (error.errors) {
+        message = '';
+        for (var prop in error.errors) {
+          if (error.errors.hasOwnProperty(prop)) {
+            message += error.errors[prop].message + "\n";
+          }
+        }
+      }
+    }
+    return message;
   };
 
   return controller;

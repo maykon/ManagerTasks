@@ -15,14 +15,33 @@ var model = (function() {
       type: String,
       required: true
     },
+    email: {
+      type: String,
+      match: [/@/, 'Endereço de e-mail inválido.'],
+      index: {
+        unique: true
+      }
+    },
     created_at: {
       type: Date,
       default: Date.now
-    }
+    },
+    is_admin: {
+      type: Boolean,
+      defautl: false
+    },
+    resetPasswordToken: String,
+    resetPasswordExpires: Date
   });
 
+  function hashPwd(password, cb) {
+    return bCrypt.hashSync(password, bCrypt.genSaltSync(8), null, cb);
+  };
+
   userSchema.pre('save', function(next) {
-    this.password = bCrypt.hashSync(this.password, bCrypt.genSaltSync(8), null, next);
+    var user = this;
+    if (!user.isModified('password')) return next();
+    user.password = hashPwd(user.password, next);
     next();
   });
 
@@ -30,10 +49,14 @@ var model = (function() {
     return bCrypt.compareSync(password, this.password);
   };
 
+  userSchema.statics.hashPwd = function(password, cb) {
+    return hashPwd(password, bCrypt.genSaltSync(8), null, cb);
+  };
+
   userSchema.statics.authenticate = function(username, password, done) {
     this.findOne({
-      username: username
-    })
+        username: username
+      })
       .exec()
       .then((user) => {
         if (!user) {
@@ -50,10 +73,10 @@ var model = (function() {
       });
   };
 
-  userSchema.statics.signup = function(username, password, done) {
+  userSchema.statics.signup = function(username, password, email, done) {
     this.findOne({
-      username: username
-    })
+        username: username
+      })
       .exec()
       .then((user) => {
         if (user) {
@@ -63,15 +86,16 @@ var model = (function() {
 
         var data = {
           username: username,
-          password: password
+          password: password,
+          email: email
         };
-        var user = this.create(data)
-          .then((user) => {
-            return done(null, user);
-          })
-          .onReject((error) => {
-            return done(error);
-          });
+        var user = new this(data);
+        var error = user.validateSync();
+        if (error) return done(error);
+        user.save((err, user) => {
+          if (err) return done(err);
+          return done(null, user);
+        });
       }).onReject((error) => {
         return done(error)
       });
