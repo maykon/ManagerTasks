@@ -93,4 +93,37 @@
       $scope.init();
     }
   ]);
+
+  mainCtrl.controller('ResetPwdCtrl', ['$rootScope', '$scope', 'Auth',
+    '$routeParams',
+    function($rootScope, $scope, Auth, $routeParams) {
+      $scope.reset = null;
+
+      $scope.clearReset = () => {
+        return {
+          password: null,
+          conf_pwd: null
+        };
+      };
+
+      $scope.findToken = (token) => {
+        Auth.reset_token(token);
+      };
+
+      $scope.resetPwd = () => {
+        if ($scope.reset.password !== $scope.reset.conf_pwd) {
+          $scope.reset = $scope.clearReset();
+          return $rootScope.showMessage('Senha não confere!');
+        }
+        Auth.change_pwd($scope.reset);
+        $scope.reset = $scope.clearReset();
+      };
+
+      $scope.init = () => {
+        $scope.reset = $scope.clearReset();
+        $scope.findToken($routeParams.token);
+      };
+      $scope.init();
+    }
+  ]);
 })();

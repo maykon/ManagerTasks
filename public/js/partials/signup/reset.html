@@ -1,0 +1,26 @@
+<div class="container">
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">
+      Alterar a senha
+    </h3>
+  </div>
+  <div class="panel-body">
+    <form ng-submit="resetPwd()">
+      <fieldset class="form-group">
+        <label for="email">Senha: </label>
+        <input placeholder="Senha" class="form-control" type="password" name="password" required ng-model="reset.password" autofocus/>
+      </fieldset>
+      <fieldset class="form-group">
+        <label for="email">Confirmação da senha: </label>
+        <input placeholder="Confirmação da senha" class="form-control" type="password" name="conf_pwd" required ng-model="reset.conf_pwd" autofocus/>
+      </fieldset>
+      <div>
+        <button type="submit" class="btn btn-primary">
+          Resetar senha
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+</div>

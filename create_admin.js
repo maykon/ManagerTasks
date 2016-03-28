@@ -4,14 +4,14 @@ var User = require('./app/models/user')();
 
 var admin_user = {
   username: "admin",
-  password: "admin"
+  password: "admin",
   email: "admin@admin.com",
   is_admin: true
 };
 
 User.findOne({
-    username: admin_user.username
-  })
+  username: admin_user.username
+})
   .exec()
   .then((user) => {
     if (user) {

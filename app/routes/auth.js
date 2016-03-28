@@ -5,4 +5,6 @@ module.exports = function(app) {
   app.post('/signup', controller.signup_register);
   app.get('/logout', controller.logout);
   app.post('/forgot_pwd', controller.forgot_pwd);
+  app.get('/reset/:token', controller.reset);
+  app.post('/reset_token', controller.reset_token);
 }

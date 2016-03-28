@@ -56,6 +56,10 @@
         templateUrl: 'js/partials/signup/forgot.html',
         controller: 'MainCtrl'
       }).
+      when('/reset/:token', {
+        templateUrl: 'js/partials/signup/reset.html',
+        controller: 'ResetPwdCtrl'
+      }).
       otherwise({
         redirectTo: '/404'
       });

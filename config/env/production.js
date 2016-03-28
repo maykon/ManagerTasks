@@ -5,5 +5,10 @@ module.exports = {
   clientSecret: process.env.CLIENT_SECRET,
   port: process.env.OPENSHIFT_NODEJS_PORT,
   address: process.env.OPENSHIFT_NODEJS_IP,
-  domain: process.env.OPENSHIFT_APP_DNS
+  domain: process.env.OPENSHIFT_APP_DNS,
+  mailer: {
+    auth: {
+      api_key: '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'
+    }
+  }
 };

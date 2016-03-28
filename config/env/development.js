@@ -5,5 +5,10 @@ module.exports = {
   clientSecret: process.env.CLIENT_SECRET,
   port: 8080,
   address: 'localhost',
-  domain: 'localhost'
+  domain: 'localhost',
+  mailer: {
+    auth: {
+      api_key: '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'
+    }
+  }
 };

@@ -47,6 +47,19 @@
               $rootScope.showMessage(response.data.message);
               $location.path('/');
             });
+        },
+        reset_token: (token) => {
+          $http.get('/reset/' + token)
+            .then((response) => {
+              $rootScope.showMessage(response.data.message);
+            });
+        },
+        change_pwd: (reset) => {
+          $http.post('/reset_token', reset)
+            .then((response) => {
+              $rootScope.showMessage(response.data.message);
+              $location.path('/');
+            });
         }
       };
     }

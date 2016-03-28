@@ -28,6 +28,7 @@
     "mongoose-findorcreate": "*",
     "morgan": "*",
     "nodemailer": "^2.3.0",
+    "nodemailer-sendgrid-transport": "^0.2.0",
     "nodemailer-smtp-transport": "^2.4.1",
     "passport": "*",
     "passport-local": "*",
