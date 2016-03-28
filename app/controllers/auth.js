@@ -28,9 +28,9 @@ module.exports = function(app) {
     };
     var _id = req.session.passport.user;
     User.findOne({
-      _id: _id,
-      is_admin: true
-    }).exec()
+        _id: _id,
+        is_admin: true
+      }).exec()
       .then((user) => {
         if (!user) return next(new Error('Usuário não é Administrador'));
         next();
@@ -94,30 +94,68 @@ module.exports = function(app) {
         });
       },
       function(token, user, done) {
-        Mailer.sendMail(req, res, user, token, done);
+        Mailer.sendResetPassword(req, res, user, token, done);
       }
     ]);
   };
 
-  controller.reset = function(req, res) {
+  controller.reset = function(req, res, next) {
     var token = sanitize(req.params.token);
-    console.log(token);
     User.findOne({
-      resetPasswordToken: token,
-      resetPasswordExpires: {
-        $gt: Date.now()
-      }
-    }).exec()
+        resetPasswordToken: token,
+        resetPasswordExpires: {
+          $gt: Date.now()
+        }
+      }).exec()
       .then((user) => {
-        if ((!user) || (user == null)) return new Error('Token de reset é inválido ou está expirado!');
-        res.status(200).end();
+        console.log("user", user);
+        if ((!user) || (user == null)) return next(new Error('Token de reset é inválido ou está expirado!'));
+        res.status(304).end();
       }).onReject((error) => res.status(500).json({
         error: utils.getMessageError(error)
       }));
   };
 
-  controller.reset_token = function(req, res) {
+  controller.reset_token = function(req, res, next) {
+    async.waterfall([
+      function(done) {
+        var token = sanitize(req.body.token),
+          password = sanitize(req.body.password);
 
+        User.findOne({
+            resetPasswordToken: token,
+            resetPasswordExpires: {
+              $gt: Date.now()
+            }
+          }).exec()
+          .then((user) => {
+            if ((!user) || (user == null)) {
+              return done(new Error('Token de reset é inválido ou está expirado!'), null);
+            }
+
+            user.password = password;
+            user.resetPasswordToken = undefined;
+            user.resetPasswordExpires = undefined;
+
+            user.save((err) => {
+              if (err) return done(err, user);
+              req.logIn(user, (err) => {
+                if (err) return done(err, user);
+                done(null, user);
+              });
+            });
+          })
+          .onReject((error) => {
+            res.status(500).json({
+              error: utils.getMessageError(error)
+            });
+            done(error, null);
+          });
+      },
+      function(user, done) {
+        Mailer.sendPasswordChanged(req, res, user, done);
+      }
+    ]);
   };
 
   return controller;

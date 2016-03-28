@@ -102,7 +102,8 @@
       $scope.clearReset = () => {
         return {
           password: null,
-          conf_pwd: null
+          conf_pwd: null,
+          token: null
         };
       };
 
@@ -121,6 +122,7 @@
 
       $scope.init = () => {
         $scope.reset = $scope.clearReset();
+        $scope.reset.token = $routeParams.token;
         $scope.findToken($routeParams.token);
       };
       $scope.init();

@@ -1,6 +1,6 @@
 {
   "name": "manager_tasks",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Gerenciador de projetos e tarefas",
   "private": true,
   "main": "start.js",
@@ -29,11 +29,9 @@
     "morgan": "*",
     "nodemailer": "^2.3.0",
     "nodemailer-sendgrid-transport": "^0.2.0",
-    "nodemailer-smtp-transport": "^2.4.1",
     "passport": "*",
     "passport-local": "*",
-    "serve-favicon": "^2.3.0",
-    "xoauth2": "^1.1.0"
+    "serve-favicon": "^2.3.0"
   },
   "repository": {
     "type": "git",
