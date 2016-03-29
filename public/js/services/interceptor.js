@@ -18,6 +18,9 @@
             case 500:
               $rootScope.goToErro(resposta.data.error);
               break;
+            case -1:
+              $rootScope.showMessage('Não foi possível conectar ao servidor!');
+              break;
           }
           return $q.reject(resposta);
         }

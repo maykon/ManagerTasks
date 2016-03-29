@@ -9,14 +9,5 @@ module.exports = function(app) {
     });
   };
 
-  controller.dashboard = function(req, res) {
-    var username = req.user ? req.user.username : null;
-    var response = {
-      message: req.flash('info'),
-      dashboard: []
-    };
-    res.status(200).json(response).end();
-  };
-
   return controller;
 };

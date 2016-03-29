@@ -6,11 +6,19 @@
     function($cookies, $rootScope, $http, $location) {
       $rootScope.currentUser = $cookies.get('user') || null;
 
+      var getExpireDate = () => {
+        var expireDate = new Date();
+        expireDate.setHours(expireDate.getHours() + 1);
+        return expireDate;
+      };
+
       return {
         login: (user, cb) => {
           $http.post('/login', user)
             .then((response) => {
-              $cookies.put('user', response.data.username);
+              $cookies.put('user', response.data.username, {
+                expires: getExpireDate()
+              });
               $rootScope.currentUser = response.data.username;
               $rootScope.showMessage(response.data.message);
               cb();
