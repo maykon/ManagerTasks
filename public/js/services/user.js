@@ -6,6 +6,12 @@
       return $resource('/users/:id', null, {
         update: {
           method: 'PUT'
+        },
+        last_users: {
+          method: 'GET',
+          params: {
+            last: true
+          }
         }
       });
     }

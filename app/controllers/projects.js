@@ -5,11 +5,24 @@ module.exports = function(app) {
   var utils = app.controllers.utils;
 
   var controller = {};
+
+  controller.lastProjects = () => {
+    return Project.find({})
+      .sort({
+        'created_at': -1
+      })
+      .limit(5);
+  };
+
   controller.listProjects = function(req, res) {
-    Project.find({})
+    var query = req.query.last ? controller.lastProjects() : Project.find({});
+    query
       .exec()
       .then((projects) => {
-        res.status(200).json(projects).end();
+        var response = req.query.last ? {
+          projects: projects
+        } : projects;
+        res.status(200).json(response);
       })
       .onReject((error) => res.status(500).json({
         error: utils.getMessageError(error)

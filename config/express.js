@@ -28,7 +28,7 @@ module.exports = function() {
   app.set('port', process.env.PORT || 8080);
   app.set('secretKey', 'meanManagerTasksSecretKey');
   app.use(favicon(path.join(__dirname, '../', 'public', 'images', 'favicon.ico')));
-  app.use(logger('dev'));
+  app.use(logger(config.logger));
   app.use(express.static('./public'));
   app.set('view engine', 'ejs');
   app.set('views', './app/views');

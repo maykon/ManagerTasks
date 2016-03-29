@@ -1,11 +1,33 @@
 <div class="container">
   <div class="starter-template">
     <h1>Dashboard</h1>
-    <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-    consequat. <br/><br/>Duis aute irure dolor in reprehenderit in voluptate velit esse
-    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="card">
+          <h3 class="card-header">Projects</h3>
+          <div class="card-block">
+            <h3 class="card-title">Last Projects Created</h3>
+            <p class="card-text">Show the last projects created.</p>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item" ng-repeat="project in projects">
+            <a ng-href="#/projects/{{project._id}}">{{project.name}}</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="card">
+          <h3 class="card-header">Users</h3>
+          <div class="card-block">
+            <h3 class="card-title">Last Users Registered</h3>
+            <p class="card-text">Show the last users registered.</p>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item" ng-repeat="user in users">
+            <a ng-href="#/users/{{user._id}}">{{user.username}}</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

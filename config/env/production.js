@@ -6,9 +6,11 @@ module.exports = {
   port: process.env.OPENSHIFT_NODEJS_PORT,
   address: process.env.OPENSHIFT_NODEJS_IP,
   domain: process.env.OPENSHIFT_APP_DNS,
+  db_debug: false,
+  logger: 'production',
   mailer: {
     auth: {
-      api_key: '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'
+      api_key: process.env.SEND_GRID_KEY
     }
   }
 };

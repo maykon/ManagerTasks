@@ -6,9 +6,11 @@ module.exports = {
   port: 8080,
   address: 'localhost',
   domain: 'localhost',
+  db_debug: true,
+  logger: 'dev',
   mailer: {
     auth: {
-      api_key: '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'
+      api_key: process.env.SEND_GRID_KEY
     }
   }
 };

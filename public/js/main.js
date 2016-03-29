@@ -1,7 +1,7 @@
 (function() {
   var managerTasks = angular.module('managerTasks', ['ngCookies', 'ngRoute',
     'interceptorFactory', 'authFactory', 'projectFactory', 'userFactory',
-    'mainCtrl', 'projectCtrl', 'userCtrl', 'bsComponents'
+    'mainCtrl', 'dashboardCtrl', 'projectCtrl', 'userCtrl', 'bsComponents'
   ]);
 
   managerTasks.filter('yesNo', function() {

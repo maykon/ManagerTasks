@@ -8,7 +8,8 @@
         templateUrl: 'js/partials/index.html'
       }).
       when('/dashboard', {
-        templateUrl: 'js/partials/dash.html'
+        templateUrl: 'js/partials/dash.html',
+        controller: 'DashboardCtrl'
       }).
       when('/error', {
         templateUrl: 'js/partials/error.html'
