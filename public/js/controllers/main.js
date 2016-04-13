@@ -41,9 +41,11 @@
       };
 
       $rootScope.showMessage = (message) => {
-        $rootScope.message = message;
-        $('#message').fadeIn('fast');
-        $rootScope.$broadcast('messageShowed');
+        if ($rootScope.message != message) {
+          $rootScope.message = message;
+          $('#message').fadeIn('fast');
+          $rootScope.$broadcast('messageShowed');
+        }
       };
 
       $rootScope.clearMessage = () => {

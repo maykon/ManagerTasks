@@ -43,7 +43,7 @@ module.exports = function() {
   app.use(session({
     secret: app.get('secretKey'),
     cookie: {
-      maxAge: 1000 * 60 * 60 * 24 // 1 day
+      maxAge: 1000 * 60 * 60 // 1 hour
     },
     store: store,
     resave: false,
@@ -54,8 +54,8 @@ module.exports = function() {
   app.use(flash());
 
   load('models', {
-      cwd: 'app'
-    })
+    cwd: 'app'
+  })
     .then('controllers/utils.js')
     .then('controllers')
     .then('routes/auth.js')
