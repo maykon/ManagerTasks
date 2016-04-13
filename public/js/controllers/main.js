@@ -1,6 +1,12 @@
 (function() {
   var mainCtrl = angular.module('mainCtrl', []);
 
+  var socket = io.connect('http://localhost/project');
+
+  socket.on('message', (msg) => {
+    console.log(msg);
+  });
+
   mainCtrl.controller('MainCtrl', ['$rootScope', '$scope', 'Auth',
     '$location',
     function($rootScope, $scope, Auth, $location) {
@@ -84,6 +90,10 @@
           email: null
         };
       }
+
+      $rootScope.showProjectCount = () => {
+        socket.emit('newProject');
+      };
 
       $scope.init = () => {
         $scope.clearUser();

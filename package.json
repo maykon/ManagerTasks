@@ -12,6 +12,7 @@
   "dependencies": {
     "async": "^2.0.0-rc.2",
     "bcrypt-nodejs": "*",
+    "bluebird": "^3.3.5",
     "body-parser": "*",
     "connect-flash": "*",
     "connect-mongodb-session": "*",
@@ -31,7 +32,8 @@
     "nodemailer-sendgrid-transport": "^0.2.0",
     "passport": "*",
     "passport-local": "*",
-    "serve-favicon": "^2.3.0"
+    "serve-favicon": "^2.3.0",
+    "socket.io": "^1.4.5"
   },
   "repository": {
     "type": "git",

@@ -46,6 +46,7 @@
       $scope.saveProject = () => {
         $scope.project.$save()
           .then((response) => {
+            $rootScope.showProjectCount();
             $rootScope.showMessage(response.message);
             $location.path('/projects');
           });
